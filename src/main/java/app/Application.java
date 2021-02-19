@@ -1,3 +1,11 @@
+/* 
+ * Copyright 2021 Sebas663. 
+ * 
+ * This software component is the intellectual property of Sebas663 S.A. 
+ * You are not allowed to use, change or distribute it without express written consent from its author. 
+ * 
+ * https://www.sebas663.com
+ */
 package app;
 
 import app.book.BookDao;
@@ -10,6 +18,11 @@ import io.swagger.annotations.Info;
 import io.swagger.annotations.SwaggerDefinition;
 import io.swagger.annotations.Tag;
 
+/**
+ * 
+ * @author Sebas663
+ *
+ */
 @SwaggerDefinition(host = "localhost:8080", //
 		info = @Info(description = "Randoms API", //
 				version = "V1.0", //
