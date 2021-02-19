@@ -6,12 +6,15 @@
  * 
  * https://www.sebas663.com
  */
-package app.book;
+package app.book.daos;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+
+import app.book.Book;
+import app.book.BookException;
 /**
  * 
  * @author Sebas663

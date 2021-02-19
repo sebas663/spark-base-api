@@ -6,9 +6,9 @@
  * 
  * https://www.sebas663.com
  */
-package app.authenticator;
+package app.user;
 
-import static app.Application.userDao;
+import static app.Application.userService;
 
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jetty.http.HttpStatus;
@@ -17,7 +17,6 @@ import org.mindrot.jbcrypt.BCrypt;
 import app.token.Token;
 import app.token.TokenProvider;
 import app.token.TokenProviderFactory;
-import app.user.User;
 import app.util.GsonUtil;
 import app.util.ResponseUtil;
 import app.util.StandardResponse;
@@ -30,7 +29,7 @@ import spark.Route;
  * @author Sebas663
  *
  */
-public class AuthenticatorController {
+public class UserAuthenticationController {
 
 	private static TokenProvider tokenProvider = TokenProviderFactory.getTokenProvider();
 
@@ -61,7 +60,7 @@ public class AuthenticatorController {
 		if (username.isEmpty() || password.isEmpty()) {
 			return false;
 		}
-		User user = userDao.getUserByUsername(username);
+		User user = userService.getUserByUsername(username);
 		if (user == null) {
 			return false;
 		}

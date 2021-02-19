@@ -6,19 +6,20 @@
  * 
  * https://www.sebas663.com
  */
-package app.user;
+package app.user.services;
+
 /**
  * 
  * @author Sebas663
  *
  */
-public class UserDaoFactory {
+public class UserServiceFactory {
 
 	/**
 	 * @return
 	 */
-	public static UserDao getUserDao() {
-		return UserDaoImpl.getInstance();
+	public static UserService getUserService() {
+		return UserServiceImpl.getInstance();
 	}
 
 }

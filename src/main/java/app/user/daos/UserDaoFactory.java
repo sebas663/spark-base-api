@@ -5,18 +5,20 @@
  * You are not allowed to use, change or distribute it without express written consent from its author. 
  * 
  * https://www.sebas663.com
- */package app.book;
+ */
+package app.user.daos;
 /**
  * 
  * @author Sebas663
  *
  */
-public class BookDaoFactory {
+public class UserDaoFactory {
 
 	/**
 	 * @return
 	 */
-	public static BookDao getBookDao() {
-		return BookDaoImpl.getInstance();
+	public static UserDao getUserDao() {
+		return UserDaoImpl.getInstance();
 	}
+
 }

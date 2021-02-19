@@ -1,0 +1,33 @@
+
+LEE EL ARTICULO TIENE UN PAR DE PASOS
+
+https://saeidfarahi.medium.com/get-started-with-spring-boot-mongodb-and-docker-compose-cfae8283ed1b
+
+
+docker network create spark-network
+docker-compose --env-file "A:\love\.env" build
+docker-compose --env-file "A:\love\.env" up -d
+
+
+
+.env parametros crear archivo .env 
+
+SERVER_HOST_PORT=25000
+MONGO_HOST_PORT=26000
+
+# host paths to mount
+MONGO_DATA_HOST_PATH="A:\love\mongodb\data"
+MONGO_LOG_HOST_PATH="A:\love\mongodb\log"
+MONGO_INITDB_SCRIPTS_HOST_PATH="A:\love\mongodb\initdb.d"
+
+# application
+APP_NAME=love
+NETWORK_NAME=spark-network
+
+# mongodb
+MONGO_AUTO_INDEX_CREATION=true
+MONGO_ROOT_USERNAME=root
+MONGO_ROOT_PASSWORD=root
+MONGO_DB=spark
+MONGO_DB_USERNAME=spark1
+MONGO_DB_PASSWORD=password

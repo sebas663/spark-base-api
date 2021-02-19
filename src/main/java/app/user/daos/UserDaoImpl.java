@@ -6,11 +6,13 @@
  * 
  * https://www.sebas663.com
  */
-package app.user;
+package app.user.daos;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import app.user.User;
 /**
  * 
  * @author Sebas663
@@ -60,7 +62,7 @@ public class UserDaoImpl implements UserDao {
 	 * @see app.user.UserDao#getAllUserNames()
 	 */
 	@Override
-	public Iterable<String> getAllUserNames() {
+	public List<String> getAllUserNames() {
 		return users.stream().map(User::getUsername).collect(Collectors.toList());
 	}
 

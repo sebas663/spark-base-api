@@ -6,7 +6,12 @@
  * 
  * https://www.sebas663.com
  */
-package app.user;
+package app.user.daos;
+
+import java.util.List;
+
+import app.user.User;
+
 /**
  * 
  * @author Sebas663
@@ -16,6 +21,6 @@ public interface UserDao {
 
 	public User getUserByUsername(String username);
 
-	public Iterable<String> getAllUserNames();
+	public List<String> getAllUserNames();
 
 }
