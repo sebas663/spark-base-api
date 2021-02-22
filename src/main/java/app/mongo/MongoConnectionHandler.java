@@ -35,8 +35,12 @@ public class MongoConnectionHandler {
 	}
 
 	public void init() {
-
-		ConnectionString connectionString = new ConnectionString("mongodb://root:root@127.0.0.1:27017");
+//		sin docker connection
+//		String connection = "mongodb://root:root@localhost:27017";
+//		docker connection
+		String connection = "mongodb://root:root@mongodb:27017";
+		
+		ConnectionString connectionString = new ConnectionString(connection);
 
 		CodecRegistry pojoCodecRegistry = fromProviders(PojoCodecProvider.builder().automatic(true).build());
 
