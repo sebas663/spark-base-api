@@ -1,19 +1,17 @@
-FROM java:8 
+FROM openjdk:8-jdk-alpine
 
-# Install maven
-RUN apt-get update
-RUN apt-get install -y maven
+ARG JAR_FILE=target/spark-base-api.jar
+ARG JAR_LIB_FILE=target/lib/
 
-WORKDIR /code
+# cd /usr/local/runme
+WORKDIR /usr/local/runme
 
-# Prepare by downloading dependencies
-ADD pom.xml /code/pom.xml
-RUN ["mvn", "dependency:resolve"]
-RUN ["mvn", "verify"]
+# copy target/find-links.jar /usr/local/runme/app.jar
+COPY ${JAR_FILE} app.jar
 
-# Adding source, compile and package into a fat jar
-ADD src /code/src
-RUN ["mvn", "package"]
+# copy project dependencies
+# cp -rf target/lib/  /usr/local/runme/lib
+ADD ${JAR_LIB_FILE} lib/
 
-EXPOSE 4567
-CMD ["/usr/lib/jvm/java-8-openjdk-amd64/bin/java", "-jar", "target/apiexapmple-jar-with-dependencies.jar"]
+# java -jar /usr/local/runme/app.jar
+ENTRYPOINT ["java","-jar","app.jar"]

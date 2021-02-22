@@ -6,24 +6,15 @@
  * 
  * https://www.sebas663.com
  */
-package app.book;
+package app.constants;
 
 /**
  * @author Sebas663
  *
  */
-public class BookException extends Exception {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -285580354878966021L;
-
-	/**
-	 * @param message
-	 */
-	public BookException(String message) {
-		super(message);
-	}
-
+public class ResponseCodes {
+	
+	public final static int OK = 0;
+	
+	public final static int NOT_OK = 1;
 }

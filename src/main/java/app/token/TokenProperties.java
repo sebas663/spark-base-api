@@ -19,7 +19,8 @@ public class TokenProperties {
 	// validity in milliseconds
 //	60000; // 1m
 //	300000; // 5m
-	private long validityInMs = 300000;
+//	3600000; // 1h
+	private long validityInMs = 3600000;
 
 	/**
 	 * @return the secretKey

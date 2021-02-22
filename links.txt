@@ -5,8 +5,8 @@ https://saeidfarahi.medium.com/get-started-with-spring-boot-mongodb-and-docker-c
 
 
 docker network create spark-network
-docker-compose --env-file "A:\love\.env" build
-docker-compose --env-file "A:\love\.env" up -d
+docker-compose --env-file "/home/sescudero/practice-personal-programming/env-files/spark-base-api.env" build
+docker-compose --env-file "/home/sescudero/practice-personal-programming/env-files/spark-base-api.env" up -d
 
 
 

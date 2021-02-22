@@ -8,19 +8,22 @@
  */
 package app.book;
 
-import static app.Application.bookDao;
+import static app.init.Application.bookDao;
 import static app.util.RequestUtil.clientAcceptsJson;
 import static app.util.RequestUtil.getParamIsbn;
 
-import org.apache.commons.lang3.StringUtils;
-import org.eclipse.jetty.http.HttpStatus;
+import java.util.Optional;
 
+import org.apache.commons.lang3.StringUtils;
+
+import app.constants.ResponseCodes;
 import app.util.GsonUtil;
 import app.util.ResponseUtil;
 import app.util.StandardResponse;
 import spark.Request;
 import spark.Response;
 import spark.Route;
+
 /**
  * 
  * @author Sebas663
@@ -34,9 +37,12 @@ public class BookController {
 			String jsonBody = request.body();
 
 			Book book = GsonUtil.fromJson(jsonBody, Book.class);
-
-			bookDao.addBook(book);
-			return new StandardResponse(HttpStatus.OK_200);
+			try {
+				bookDao.addBook(book);
+			} catch (BackendException e) {
+				return new StandardResponse(ResponseCodes.NOT_OK, e.getMessage());
+			}
+			return new StandardResponse(ResponseCodes.OK);
 		}
 
 		return ResponseUtil.notAcceptable.handle(request, response);
@@ -46,8 +52,12 @@ public class BookController {
 
 		if (clientAcceptsJson(request)) {
 
-			Iterable<Book> books = bookDao.getAllBooks();
-			return new StandardResponse(HttpStatus.OK_200, GsonUtil.toJsonTree(books));
+			try {
+				Iterable<Book> books = bookDao.getAllBooks();
+				return new StandardResponse(ResponseCodes.OK, GsonUtil.toJsonTree(books));
+			} catch (BackendException e) {
+				return new StandardResponse(ResponseCodes.NOT_OK, e.getMessage());
+			}
 		}
 
 		return ResponseUtil.notAcceptable.handle(request, response);
@@ -62,9 +72,12 @@ public class BookController {
 		}
 
 		if (clientAcceptsJson(request)) {
-
-			Book book = bookDao.getBookByIsbn(getParamIsbn(request));
-			return new StandardResponse(HttpStatus.OK_200, GsonUtil.toJsonTree(book));
+			try {
+				Optional<Book> book = bookDao.getBookByIsbn(getParamIsbn(request));
+				return ResponseUtil.returnStandardResponseWithData(book);
+			} catch (BackendException e) {
+				return new StandardResponse(ResponseCodes.NOT_OK, e.getMessage());
+			}
 		}
 
 		return ResponseUtil.notAcceptable.handle(request, response);
@@ -77,14 +90,18 @@ public class BookController {
 			return ResponseUtil.badRequest.handle(request, response);
 		}
 		if (clientAcceptsJson(request)) {
-			String jsonBody = request.body();
+			try {
+				String jsonBody = request.body();
 
-			Book book = GsonUtil.fromJson(jsonBody, Book.class);
+				Book book = GsonUtil.fromJson(jsonBody, Book.class);
 
-			book.setIsbn(isbn);
+				book.setIsbn(isbn);
 
-			Book updatedBook = bookDao.updateBookByIsbn(book);
-			return new StandardResponse(HttpStatus.OK_200, GsonUtil.toJsonTree(updatedBook));
+				Optional<Book> updatedBook = bookDao.updateBookByIsbn(book);
+				return ResponseUtil.returnStandardResponseWithData(updatedBook);
+			} catch (BackendException e) {
+				return new StandardResponse(ResponseCodes.NOT_OK, e.getMessage());
+			}
 		}
 
 		return ResponseUtil.notAcceptable.handle(request, response);
@@ -98,12 +115,12 @@ public class BookController {
 		}
 
 		if (clientAcceptsJson(request)) {
-
-			boolean updatedBook = bookDao.deleteBookByIsbn(isbn);
-			if (updatedBook) {
-				return new StandardResponse(HttpStatus.OK_200);
+			try {
+				Optional<Book> deleteBook = bookDao.deleteBookByIsbn(isbn);
+				return ResponseUtil.returnStandardResponseWithData(deleteBook);
+			} catch (BackendException e) {
+				return new StandardResponse(ResponseCodes.NOT_OK, e.getMessage());
 			}
-			return new StandardResponse(HttpStatus.OK_200);
 		}
 
 		return ResponseUtil.notAcceptable.handle(request, response);

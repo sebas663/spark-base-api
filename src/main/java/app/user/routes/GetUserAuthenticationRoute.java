@@ -12,6 +12,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
+import app.routes.RoutesPaths;
 import app.swagger.CustomApiResponses;
 import app.user.UserAuthenticationController;
 import io.swagger.annotations.Api;
@@ -27,7 +28,7 @@ import spark.Route;
  *
  */
 @Api
-@Path(app.routes.RoutesPaths.AUTHENTICATE)
+@Path(RoutesPaths.AUTHENTICATE)
 @Produces("application/json")
 public class GetUserAuthenticationRoute implements Route {
 
@@ -40,7 +41,6 @@ public class GetUserAuthenticationRoute implements Route {
 	@GET
 	@ApiOperation(value = "Get access token", nickname = "GetUserAuthenticationRoute")
 	@ApiImplicitParams({ //
-			@ApiImplicitParam(required = true, dataType = "string", name = "auth", paramType = "header"), //
 			@ApiImplicitParam(required = true, dataType = "app.user.routes.request.UserRequest", paramType = "body") //
 	}) //
 	@CustomApiResponses

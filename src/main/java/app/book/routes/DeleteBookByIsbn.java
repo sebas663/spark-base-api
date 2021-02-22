@@ -8,6 +8,7 @@
  */
 package app.book.routes;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -28,7 +29,7 @@ import spark.Route;
  *
  */
 @Api
-@Path(RoutesPaths.ONE_BOOK)
+@Path(RoutesPaths.BOOKS + "{isbn}")
 @Produces("application/json")
 public class DeleteBookByIsbn implements Route {
 
@@ -38,7 +39,7 @@ public class DeleteBookByIsbn implements Route {
 	 * @see spark.Route#handle(spark.Request, spark.Response)
 	 */
 	@Override
-	@GET
+	@DELETE
 	@ApiOperation(value = "Delete book by isbn", nickname = "DeleteBookByIsbn")
 	@ApiImplicitParams({ //
 			@ApiImplicitParam(required = true, dataType = "string", name = "auth", paramType = "header"), //

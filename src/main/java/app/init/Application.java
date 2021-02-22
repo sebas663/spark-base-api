@@ -6,12 +6,11 @@
  * 
  * https://www.sebas663.com
  */
-package app;
+package app.init;
 
 import app.book.daos.BookDao;
 import app.book.daos.BookDaoFactory;
 import app.routes.Router;
-import app.user.daos.UserDaoFactory;
 import app.user.services.UserService;
 import app.user.services.UserServiceFactory;
 import io.swagger.annotations.Contact;
@@ -28,7 +27,7 @@ import io.swagger.annotations.Tag;
 		info = @Info(description = "Randoms API", //
 				version = "V1.0", //
 				title = "Some random api for testing", //
-				contact = @Contact(name = "Serol", url = "https://sebas663.com")), //
+				contact = @Contact(name = "sebas663", url = "https://sebas663.com")), //
 		schemes = { SwaggerDefinition.Scheme.HTTP, SwaggerDefinition.Scheme.HTTPS }, //
 		consumes = { "application/json" }, //
 		produces = { "application/json" }, //
@@ -41,8 +40,9 @@ public class Application {
 
 	public static void main(String[] args) {
 		// Instantiate your dependencies
-		bookDao = BookDaoFactory.getBookDao();
 		userService = UserServiceFactory.getUserService();
+		bookDao = BookDaoFactory.getBookDao();
+		
 
 		Router router = new Router();
 		router.init();

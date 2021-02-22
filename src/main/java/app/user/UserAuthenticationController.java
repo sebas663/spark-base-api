@@ -8,7 +8,7 @@
  */
 package app.user;
 
-import static app.Application.userService;
+import static app.init.Application.userService;
 
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jetty.http.HttpStatus;

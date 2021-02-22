@@ -7,71 +7,62 @@
  * https://www.sebas663.com
  */
 package app.book;
+
+import org.bson.codecs.pojo.annotations.BsonProperty;
+import org.bson.types.ObjectId;
+
 /**
  * 
  * @author Sebas663
  *
  */
 public class Book {
-	
-	String title;
-	String author;
-	String isbn;
 
-	public Book(String title, String author, String isbn) {
-		super();
-		this.title = title;
-		this.author = author;
-		this.isbn = isbn;
+	private ObjectId id;
+	
+	@BsonProperty(value = "title")
+	private String title;
+	
+	@BsonProperty(value = "author")
+	private String author;
+
+	@BsonProperty(value = "isbn")
+	private String isbn;
+
+	public ObjectId getId() {
+		return id;
 	}
 
-	/**
-	 * @return the title
-	 */
+	public Book setId(ObjectId id) {
+		this.id = id;
+		return this;
+	}
+
 	public String getTitle() {
 		return title;
 	}
 
-	/**
-	 * @param title the title to set
-	 */
-	public void setTitle(String title) {
+	public Book setTitle(String title) {
 		this.title = title;
+		return this;
 	}
 
-	/**
-	 * @return the author
-	 */
 	public String getAuthor() {
 		return author;
 	}
 
-	/**
-	 * @param author the author to set
-	 */
-	public void setAuthor(String author) {
+	public Book setAuthor(String author) {
 		this.author = author;
+		return this;
 	}
 
-	/**
-	 * @return the isbn
-	 */
 	public String getIsbn() {
 		return isbn;
 	}
 
-	/**
-	 * @param isbn the isbn to set
-	 */
-	public void setIsbn(String isbn) {
+	public Book setIsbn(String isbn) {
 		this.isbn = isbn;
+		return this;
 	}
 
-	public String getMediumCover() {
-		return "http://covers.openlibrary.org/b/isbn/" + this.isbn + "-M.jpg";
-	}
-
-	public String getLargeCover() {
-		return "http://covers.openlibrary.org/b/isbn/" + this.isbn + "-L.jpg";
-	}
 }

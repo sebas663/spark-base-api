@@ -8,11 +8,15 @@
  */
 package app.util;
 
+import java.util.Optional;
+
 import org.eclipse.jetty.http.HttpStatus;
 
+import app.constants.ResponseCodes;
 import spark.Request;
 import spark.Response;
 import spark.Route;
+
 /**
  * 
  * @author Sebas663
@@ -35,4 +39,11 @@ public class ResponseUtil {
 		response.status(HttpStatus.BAD_REQUEST_400);
 		return new StandardResponse(HttpStatus.BAD_REQUEST_400, HttpStatus.getMessage(HttpStatus.BAD_REQUEST_400));
 	};
+
+	public static <T> StandardResponse returnStandardResponseWithData(Optional<T> responseBody) {
+		if (responseBody.isPresent()) {
+			return new StandardResponse(ResponseCodes.OK, GsonUtil.toJsonTree(responseBody.get()));
+		}
+		return new StandardResponse(ResponseCodes.NOT_OK, "No data");
+	}
 }

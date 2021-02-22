@@ -16,7 +16,7 @@ services:
       - /opt/mongodb/log:/var/log/mongodb/
     networks:
       - main-network
-    command: ["--bind_ip", "127.0.0.1"]
+    command: ["--bind_ip", "0.0.0.0"]
     
   api:
     build:

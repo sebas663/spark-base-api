@@ -8,8 +8,11 @@
  */
 package app.book.daos;
 
+import java.util.List;
+import java.util.Optional;
+
 import app.book.Book;
-import app.book.BookException;
+import app.book.BackendException;
 
 /**
  * 
@@ -18,15 +21,14 @@ import app.book.BookException;
  */
 public interface BookDao {
 
-	public boolean addBook(Book book);
+	public void addBook(Book book) throws BackendException;
 
-	public Iterable<Book> getAllBooks();
+	public List<Book> getAllBooks()throws BackendException;
 
-	public Book getBookByIsbn(String isbn);
+	public Optional<Book> getBookByIsbn(String isbn) throws BackendException;
 
-	public Book updateBookByIsbn(Book book) throws BookException;
+	public Optional<Book> updateBookByIsbn(Book book) throws BackendException;
 
-	public boolean deleteBookByIsbn(String isbn);
+	public Optional<Book> deleteBookByIsbn(String isbn)throws BackendException;
 
-	public Book getRandomBook();
 }

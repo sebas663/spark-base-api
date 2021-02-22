@@ -8,7 +8,7 @@
  */
 package app.book.routes;
 
-import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
@@ -28,7 +28,7 @@ import spark.Route;
  *
  */
 @Api
-@Path(RoutesPaths.ONE_BOOK)
+@Path(RoutesPaths.BOOKS + "{isbn}")
 @Produces("application/json")
 public class PutUpdateBookByIsbn implements Route {
 
@@ -38,7 +38,7 @@ public class PutUpdateBookByIsbn implements Route {
 	 * @see spark.Route#handle(spark.Request, spark.Response)
 	 */
 	@Override
-	@GET
+	@PUT
 	@ApiOperation(value = "Update Bbok by isbn", nickname = "UpdateBookByIsbn")
 	@ApiImplicitParams({ //
 			@ApiImplicitParam(required = true, dataType = "string", name = "auth", paramType = "header"), //

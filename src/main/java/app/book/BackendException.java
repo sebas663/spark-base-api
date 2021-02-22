@@ -6,17 +6,24 @@
  * 
  * https://www.sebas663.com
  */
-package app.routes;
-
-import java.util.Arrays;
-import java.util.List;
+package app.book;
 
 /**
  * @author Sebas663
  *
  */
-public class RoutePackages {
+public class BackendException extends Exception {
 
-	public static final List<String> APP_ROUTES_PACKAGES = Arrays.asList("app.init", "app.book.routes",
-			"app.user.routes");
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -285580354878966021L;
+
+	/**
+	 * @param message
+	 */
+	public BackendException(String message) {
+		super(message);
+	}
+
 }

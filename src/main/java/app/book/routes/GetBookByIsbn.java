@@ -28,7 +28,7 @@ import spark.Route;
  *
  */
 @Api
-@Path(RoutesPaths.ONE_BOOK)
+@Path(RoutesPaths.BOOKS + "{isbn}")
 @Produces("application/json")
 public class GetBookByIsbn implements Route {
 
@@ -41,12 +41,12 @@ public class GetBookByIsbn implements Route {
 	@GET
 	@ApiOperation(value = "Get Book by ISBN", nickname = "GetBookByIsbn")
 	@ApiImplicitParams({ //
-		@ApiImplicitParam(required = true, dataType = "string", name = "auth", paramType = "header"), //
-		@ApiImplicitParam(name = "isbn", value = "ISBN", required = true, dataType = "long", paramType = "query") //
+			@ApiImplicitParam(required = true, dataType = "string", name = "auth", paramType = "header"), //
+			@ApiImplicitParam(name = "isbn", value = "ISBN", required = true, dataType = "long", paramType = "query") //
 	}) //
 	@CustomApiResponses
 	public Object handle(Request request, Response response) throws Exception {
-		return BookController.fetchAllBooks.handle(request, response);
+		return BookController.fetchByIsbn.handle(request, response);
 	}
 
 }

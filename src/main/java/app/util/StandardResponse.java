@@ -15,30 +15,30 @@ import com.google.gson.JsonElement;
  *
  */
 public class StandardResponse {
-	private int status;
+	private int code;
 	private String message;
 	private JsonElement data;
 
-	public StandardResponse(int status) {
-		this.status = status;
+	public StandardResponse(int code) {
+		this.code = code;
 	}
 
-	public StandardResponse(int status, String message) {
-		this.status = status;
+	public StandardResponse(int code, String message) {
+		this.code = code;
 		this.message = message;
 	}
 
-	public StandardResponse(int status, JsonElement data) {
-		this.status = status;
+	public StandardResponse(int code, JsonElement data) {
+		this.code = code;
 		this.data = data;
 	}
 
-	public int getStatus() {
-		return status;
+	public int getCode() {
+		return code;
 	}
 
-	public void setStatus(int status) {
-		this.status = status;
+	public void setCode(int code) {
+		this.code = code;
 	}
 
 	public String getMessage() {
