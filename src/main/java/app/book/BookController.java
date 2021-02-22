@@ -9,7 +9,6 @@
 package app.book;
 
 import static app.init.Application.bookDao;
-import static app.util.RequestUtil.clientAcceptsJson;
 import static app.util.RequestUtil.getParamIsbn;
 
 import java.util.Optional;
@@ -32,35 +31,26 @@ import spark.Route;
 public class BookController {
 
 	public static Route createBook = (Request request, Response response) -> {
-
-		if (clientAcceptsJson(request)) {
+		try {
 			String jsonBody = request.body();
 
 			Book book = GsonUtil.fromJson(jsonBody, Book.class);
-			try {
-				bookDao.addBook(book);
-			} catch (BackendException e) {
-				return new StandardResponse(ResponseCodes.NOT_OK, e.getMessage());
-			}
-			return new StandardResponse(ResponseCodes.OK);
-		}
+			bookDao.addBook(book);
 
-		return ResponseUtil.notAcceptable.handle(request, response);
+			return new StandardResponse(ResponseCodes.OK);
+		} catch (BackendException e) {
+			return new StandardResponse(ResponseCodes.NOT_OK, e.getMessage());
+		}
 	};
 
 	public static Route fetchAllBooks = (Request request, Response response) -> {
+		try {
+			Iterable<Book> books = bookDao.getAllBooks();
 
-		if (clientAcceptsJson(request)) {
-
-			try {
-				Iterable<Book> books = bookDao.getAllBooks();
-				return new StandardResponse(ResponseCodes.OK, GsonUtil.toJsonTree(books));
-			} catch (BackendException e) {
-				return new StandardResponse(ResponseCodes.NOT_OK, e.getMessage());
-			}
+			return new StandardResponse(ResponseCodes.OK, GsonUtil.toJsonTree(books));
+		} catch (BackendException e) {
+			return new StandardResponse(ResponseCodes.NOT_OK, e.getMessage());
 		}
-
-		return ResponseUtil.notAcceptable.handle(request, response);
 	};
 
 	public static Route fetchByIsbn = (Request request, Response response) -> {
@@ -71,16 +61,13 @@ public class BookController {
 			return ResponseUtil.badRequest.handle(request, response);
 		}
 
-		if (clientAcceptsJson(request)) {
-			try {
-				Optional<Book> book = bookDao.getBookByIsbn(getParamIsbn(request));
-				return ResponseUtil.returnStandardResponseWithData(book);
-			} catch (BackendException e) {
-				return new StandardResponse(ResponseCodes.NOT_OK, e.getMessage());
-			}
-		}
+		try {
+			Optional<Book> book = bookDao.getBookByIsbn(getParamIsbn(request));
 
-		return ResponseUtil.notAcceptable.handle(request, response);
+			return ResponseUtil.returnStandardResponseWithData(book);
+		} catch (BackendException e) {
+			return new StandardResponse(ResponseCodes.NOT_OK, e.getMessage());
+		}
 	};
 
 	public static Route updateByIsbn = (Request request, Response response) -> {
@@ -89,22 +76,20 @@ public class BookController {
 		if (StringUtils.isEmpty(isbn)) {
 			return ResponseUtil.badRequest.handle(request, response);
 		}
-		if (clientAcceptsJson(request)) {
-			try {
-				String jsonBody = request.body();
 
-				Book book = GsonUtil.fromJson(jsonBody, Book.class);
+		try {
+			String jsonBody = request.body();
 
-				book.setIsbn(isbn);
+			Book book = GsonUtil.fromJson(jsonBody, Book.class);
 
-				Optional<Book> updatedBook = bookDao.updateBookByIsbn(book);
-				return ResponseUtil.returnStandardResponseWithData(updatedBook);
-			} catch (BackendException e) {
-				return new StandardResponse(ResponseCodes.NOT_OK, e.getMessage());
-			}
+			book.setIsbn(isbn);
+
+			Optional<Book> updatedBook = bookDao.updateBookByIsbn(book);
+
+			return ResponseUtil.returnStandardResponseWithData(updatedBook);
+		} catch (BackendException e) {
+			return new StandardResponse(ResponseCodes.NOT_OK, e.getMessage());
 		}
-
-		return ResponseUtil.notAcceptable.handle(request, response);
 	};
 
 	public static Route deleteByIsbn = (Request request, Response response) -> {
@@ -114,16 +99,13 @@ public class BookController {
 			return ResponseUtil.badRequest.handle(request, response);
 		}
 
-		if (clientAcceptsJson(request)) {
-			try {
-				Optional<Book> deleteBook = bookDao.deleteBookByIsbn(isbn);
-				return ResponseUtil.returnStandardResponseWithData(deleteBook);
-			} catch (BackendException e) {
-				return new StandardResponse(ResponseCodes.NOT_OK, e.getMessage());
-			}
-		}
+		try {
+			Optional<Book> deleteBook = bookDao.deleteBookByIsbn(isbn);
 
-		return ResponseUtil.notAcceptable.handle(request, response);
+			return ResponseUtil.returnStandardResponseWithData(deleteBook);
+		} catch (BackendException e) {
+			return new StandardResponse(ResponseCodes.NOT_OK, e.getMessage());
+		}
 	};
 
 }

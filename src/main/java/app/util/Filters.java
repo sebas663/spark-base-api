@@ -8,15 +8,23 @@
  */
 package app.util;
 
+import static app.init.Application.bookDao;
+import static app.util.RequestUtil.clientAcceptsJson;
 import static spark.Spark.halt;
+
+import java.util.Optional;
 
 import org.eclipse.jetty.http.HttpStatus;
 
+import app.book.BackendException;
+import app.book.Book;
+import app.constants.ResponseCodes;
 import app.token.TokenProvider;
 import app.token.TokenProviderFactory;
 import spark.Filter;
 import spark.Request;
 import spark.Response;
+
 /**
  * 
  * @author Sebas663
@@ -51,6 +59,16 @@ public class Filters {
 		response.header(headerRequestMethod, wildcard);
 		response.header(headerAllowHeaders, wildcard);
 
+	};
+
+	public static Filter clientAcceptsJson = (Request request, Response response) -> {
+		
+		if (!clientAcceptsJson(request)) {
+
+			response.status(HttpStatus.NOT_ACCEPTABLE_406);
+
+			halt(HttpStatus.NOT_ACCEPTABLE_406, HttpStatus.getMessage(HttpStatus.NOT_ACCEPTABLE_406));
+		}
 	};
 
 	private static void handleHalt() {

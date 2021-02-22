@@ -48,17 +48,17 @@ public class Router implements SparkApplication {
 		try {
 
 			before(Filters.corsFilter);
-			before("/v1/*", Filters.ensureIsAuthemticated);
+			before(Filters.clientAcceptsJson);
+
+			before(RoutesPaths.ENSURE_IS_AUTHENTICATED, Filters.ensureIsAuthemticated);
 
 			// Scan classes with @Api annotation and add as routes
 			RouteBuilder.setupRoutes(RoutePackages.APP_ROUTES_PACKAGES);
 
-			get("/swagger", SwaggerController.swagger);
+			get(RoutesPaths.SWAGGER, SwaggerController.swagger);
 
-			options("/*", OptionsController.options);
-
-			get("*", ResponseUtil.notFound, GsonUtil::toJson);
-			get("*", ResponseUtil.notAcceptable, GsonUtil::toJson);
+			options(RoutesPaths.ALL, OptionsController.options);
+			get(RoutesPaths.ALL, ResponseUtil.notFound, GsonUtil::toJson);
 
 		} catch (Exception e) {
 			System.err.println(e);
