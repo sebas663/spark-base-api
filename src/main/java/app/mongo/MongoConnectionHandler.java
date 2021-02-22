@@ -1,3 +1,11 @@
+/* 
+ * Copyright 2021 Sebas663. 
+ * 
+ * This software component is the intellectual property of Sebas663 S.A. 
+ * You are not allowed to use, change or distribute it without express written consent from its author. 
+ * 
+ * https://www.sebas663.com
+ */
 package app.mongo;
 
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
@@ -13,6 +21,11 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
+/**
+ * 
+ * @author Sebas663
+ *
+ */
 public class MongoConnectionHandler {
 
 	private static MongoConnectionHandler instance;
@@ -38,7 +51,13 @@ public class MongoConnectionHandler {
 //		sin docker connection
 //		String connection = "mongodb://root:root@localhost:27017";
 //		docker connection
-		String connection = "mongodb://root:root@mongodb:27017";
+//		String connection = "mongodb://root:root@mongodb:27017";
+		String connection = System.getenv("MONGO_CONNECTION_STRING");
+		System.out.println("MONGO_CONNECTION_STRING: " + connection);
+		
+//		String databaseName = "spark";
+		String databaseName = System.getenv("MONGO_DB");
+		System.out.println("MONGO_DB: " + databaseName);
 		
 		ConnectionString connectionString = new ConnectionString(connection);
 
@@ -50,7 +69,7 @@ public class MongoConnectionHandler {
 
 		MongoClient mongoClient = MongoClients.create(clientSettings);
 
-		database = mongoClient.getDatabase("spark");
+		database = mongoClient.getDatabase(databaseName);
 	}
 
 	public <T> MongoCollection<T> getCollection(Class<T> clazz) {

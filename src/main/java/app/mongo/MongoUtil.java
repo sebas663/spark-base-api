@@ -1,3 +1,11 @@
+/* 
+ * Copyright 2021 Sebas663. 
+ * 
+ * This software component is the intellectual property of Sebas663 S.A. 
+ * You are not allowed to use, change or distribute it without express written consent from its author. 
+ * 
+ * https://www.sebas663.com
+ */
 package app.mongo;
 
 import java.util.ArrayList;
@@ -8,6 +16,11 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.FindOneAndReplaceOptions;
 import com.mongodb.client.model.ReturnDocument;
 
+/**
+ * 
+ * @author Sebas663
+ *
+ */
 public class MongoUtil {
 
 	private static MongoUtil instance;
