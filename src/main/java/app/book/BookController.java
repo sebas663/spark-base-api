@@ -9,7 +9,7 @@
 package app.book;
 
 import static app.init.Application.bookDao;
-import static app.util.RequestUtil.getParamIsbn;
+import static app.util.RequestUtil.getParam;
 
 import java.util.Optional;
 
@@ -54,15 +54,14 @@ public class BookController {
 	};
 
 	public static Route fetchByIsbn = (Request request, Response response) -> {
-
-		String isbn = getParamIsbn(request);
+		String isbn = getParam(request,"isbn");
 
 		if (StringUtils.isEmpty(isbn)) {
 			return ResponseUtil.badRequest.handle(request, response);
 		}
 
 		try {
-			Optional<Book> book = bookDao.getBookByIsbn(getParamIsbn(request));
+			Optional<Book> book = bookDao.getBookByIsbn(isbn);
 
 			return ResponseUtil.returnStandardResponseWithData(book);
 		} catch (BackendException e) {
@@ -71,7 +70,7 @@ public class BookController {
 	};
 
 	public static Route updateByIsbn = (Request request, Response response) -> {
-		String isbn = getParamIsbn(request);
+		String isbn = getParam(request,"isbn");
 
 		if (StringUtils.isEmpty(isbn)) {
 			return ResponseUtil.badRequest.handle(request, response);
@@ -93,7 +92,7 @@ public class BookController {
 	};
 
 	public static Route deleteByIsbn = (Request request, Response response) -> {
-		String isbn = getParamIsbn(request);
+		String isbn = getParam(request,"isbn");
 
 		if (StringUtils.isEmpty(isbn)) {
 			return ResponseUtil.badRequest.handle(request, response);

@@ -9,6 +9,7 @@
 package app.util;
 
 import spark.*;
+
 /**
  * 
  * @author Sebas663
@@ -16,38 +17,21 @@ import spark.*;
  */
 public class RequestUtil {
 
-    public static String getQueryLocale(Request request) {
-        return request.queryParams("locale");
-    }
+	public static String getParam(Request request, String param) {
+		return request.params(param);
+	}
 
-    public static String getParamIsbn(Request request) {
-        return request.params("isbn");
-    }
+	public static String getQueryParam(Request request, String queryParam) {
+		return request.queryParams(queryParam);
+	}
 
-    public static String getQueryUsername(Request request) {
-        return request.queryParams("username");
-    }
+	public static String getSessionAttribute(Request request, String attribute) {
+		return request.session().attribute(attribute);
+	}
 
-    public static String getQueryPassword(Request request) {
-        return request.queryParams("password");
-    }
-
-    public static String getQueryLoginRedirect(Request request) {
-        return request.queryParams("loginRedirect");
-    }
-
-    public static String getSessionLocale(Request request) {
-        return request.session().attribute("locale");
-    }
-
-    public static String getSessionCurrentUser(Request request) {
-        return request.session().attribute("currentUser");
-    }
-
-
-    public static boolean clientAcceptsJson(Request request) {
-        String accept = request.headers("Accept");
-        return accept != null && accept.contains("application/json");
-    }
+	public static boolean clientAcceptsJson(Request request) {
+		String accept = request.headers("Accept");
+		return accept != null && accept.contains("application/json");
+	}
 
 }
