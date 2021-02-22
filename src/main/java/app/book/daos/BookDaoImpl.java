@@ -105,27 +105,7 @@ public class BookDaoImpl implements BookDao {
 	@Override
 	public Optional<Book> updateBookByIsbn(Book book) throws BackendException {
 		try {
-			if (book.getIsbn() == null) {
-				throw new BackendException("Isbn cannot be blank");
-			}
-
-			Optional<Book> toEditOp = getBookByIsbn(book.getIsbn());
-
-			if (!toEditOp.isPresent()) {
-				throw new BackendException("Book not found");
-			}
-
-			Book toEdit = toEditOp.get();
-
-			if (book.getAuthor() != null) {
-				toEdit.setAuthor(book.getAuthor());
-			}
-
-			if (book.getTitle() != null) {
-				toEdit.setTitle(book.getTitle());
-			}
-
-			return Optional.ofNullable(collection.findOneAndReplace(getFilterByISBN(toEdit.getIsbn()), toEdit,
+			return Optional.ofNullable(collection.findOneAndReplace(getFilterByISBN(book.getIsbn()), book,
 					MongoUtil.getInstance().getReturnDocAfterReplace()));
 
 		} catch (Exception ex) {

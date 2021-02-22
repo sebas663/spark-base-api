@@ -8,7 +8,7 @@
  */
 package app.book;
 
-import static app.init.Application.bookDao;
+import static app.init.Application.bookService;
 import static app.util.RequestUtil.getParam;
 
 import java.util.Optional;
@@ -35,7 +35,7 @@ public class BookController {
 			String jsonBody = request.body();
 
 			Book book = GsonUtil.fromJson(jsonBody, Book.class);
-			bookDao.addBook(book);
+			bookService.addBook(book);
 
 			return new StandardResponse(ResponseCodes.OK);
 		} catch (BackendException e) {
@@ -45,7 +45,7 @@ public class BookController {
 
 	public static Route fetchAllBooks = (Request request, Response response) -> {
 		try {
-			Iterable<Book> books = bookDao.getAllBooks();
+			Iterable<Book> books = bookService.getAllBooks();
 
 			return new StandardResponse(ResponseCodes.OK, GsonUtil.toJsonTree(books));
 		} catch (BackendException e) {
@@ -61,7 +61,7 @@ public class BookController {
 		}
 
 		try {
-			Optional<Book> book = bookDao.getBookByIsbn(isbn);
+			Optional<Book> book = bookService.getBookByIsbn(isbn);
 
 			return ResponseUtil.returnStandardResponseWithData(book);
 		} catch (BackendException e) {
@@ -83,7 +83,7 @@ public class BookController {
 
 			book.setIsbn(isbn);
 
-			Optional<Book> updatedBook = bookDao.updateBookByIsbn(book);
+			Optional<Book> updatedBook = bookService.updateBookByIsbn(book);
 
 			return ResponseUtil.returnStandardResponseWithData(updatedBook);
 		} catch (BackendException e) {
@@ -99,7 +99,7 @@ public class BookController {
 		}
 
 		try {
-			Optional<Book> deleteBook = bookDao.deleteBookByIsbn(isbn);
+			Optional<Book> deleteBook = bookService.deleteBookByIsbn(isbn);
 
 			return ResponseUtil.returnStandardResponseWithData(deleteBook);
 		} catch (BackendException e) {

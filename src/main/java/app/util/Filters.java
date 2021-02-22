@@ -8,17 +8,11 @@
  */
 package app.util;
 
-import static app.init.Application.bookDao;
 import static app.util.RequestUtil.clientAcceptsJson;
 import static spark.Spark.halt;
 
-import java.util.Optional;
-
 import org.eclipse.jetty.http.HttpStatus;
 
-import app.book.BackendException;
-import app.book.Book;
-import app.constants.ResponseCodes;
 import app.token.TokenProvider;
 import app.token.TokenProviderFactory;
 import spark.Filter;

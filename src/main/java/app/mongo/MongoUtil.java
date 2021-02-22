@@ -58,5 +58,4 @@ public class MongoUtil {
 	public FindOneAndReplaceOptions getReturnDocAfterReplace() {
 		return returnDocAfterReplace;
 	}
-
 }

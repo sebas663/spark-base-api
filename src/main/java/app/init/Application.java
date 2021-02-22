@@ -8,8 +8,8 @@
  */
 package app.init;
 
-import app.book.daos.BookDao;
-import app.book.daos.BookDaoFactory;
+import app.book.services.BookService;
+import app.book.services.BookServiceFactory;
 import app.routes.Router;
 import app.user.services.UserService;
 import app.user.services.UserServiceFactory;
@@ -35,14 +35,13 @@ import io.swagger.annotations.Tag;
 public class Application {
 
 	// Declare dependencies
-	public static BookDao bookDao;
+	public static BookService bookService;
 	public static UserService userService;
 
 	public static void main(String[] args) {
 		// Instantiate your dependencies
 		userService = UserServiceFactory.getUserService();
-		bookDao = BookDaoFactory.getBookDao();
-		
+		bookService = BookServiceFactory.getBookService();
 
 		Router router = new Router();
 		router.init();
